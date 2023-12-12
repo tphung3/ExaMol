@@ -4,6 +4,7 @@ import shutil
 import sys
 
 from parsl import Config, HighThroughputExecutor
+from parsl.executors.taskvine import TaskVineExecutor, TaskVineManagerConfig
 from proxystore.store import Store
 from proxystore.connectors.file import FileConnector
 
@@ -52,7 +53,13 @@ reporter = MarkdownReporter()
 # Make the parsl (compute) and proxystore (optional data fabric) configuration
 is_mac = sys.platform == 'darwin'
 config = Config(
-    executors=[HighThroughputExecutor(max_workers=1)],
+    executors=[TaskVineExecutor(
+                    worker_launch_method='manual',
+                    function_exec_mode='serverless',
+                    manager_config=TaskVineManagerConfig(port=9125,
+                                                         env_pack='hpdc2024-examol')
+                    )],
+    #executors=[HighThroughputExecutor(max_workers=1)],
     run_dir=str((my_path / 'parsl-logs')),
 )
 store = Store(name='file', connector=FileConnector(store_dir=str(my_path / 'proxystore')), metrics=True)
