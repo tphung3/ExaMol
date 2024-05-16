@@ -14,3 +14,8 @@ conda install -c conda-forge --strict-channel-priority gcc_linux-64 gxx_linux-64
 cd deps/cctools-src
 ./configure --with-base-dir ${CONDA_PREFIX} --prefix ${CONDA_PREFIX} --debug; make install
 cd ../..
+
+# build customized parsl
+cd deps/
+pip install parsl
+cd ..

@@ -130,3 +130,7 @@ dmypy.json
 
 # Devs for hpdc2024
 deps
+
+# hpdc2024 results
+examples/redoxmers/parsl-logs/
+examples/redoxmers/proxystore/
